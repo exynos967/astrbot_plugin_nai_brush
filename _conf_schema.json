@@ -1,0 +1,508 @@
+{
+  "model": {
+    "type": "object",
+    "description": "NovelAI Web 接口基础配置",
+    "items": {
+      "base_url": {
+        "type": "string",
+        "description": "NAI Web API 基础地址",
+        "default": "https://std.loliyc.com",
+        "obvious_hint": true
+      },
+      "api_key": {
+        "type": "string",
+        "description": "接口 Token，可留空",
+        "default": ""
+      },
+      "nai_endpoint": {
+        "type": "string",
+        "description": "接口路径",
+        "default": "/generate"
+      },
+      "default_model": {
+        "type": "string",
+        "description": "默认模型",
+        "default": "nai-diffusion-4-5-full",
+        "options": [
+          "nai-diffusion-3",
+          "nai-diffusion-3-furry",
+          "nai-diffusion-4-full",
+          "nai-diffusion-4-curated",
+          "nai-diffusion-4-5-full"
+        ]
+      },
+      "available_models": {
+        "type": "list",
+        "description": "允许切换的模型列表",
+        "default": [
+          "nai-diffusion-3",
+          "nai-diffusion-3-furry",
+          "nai-diffusion-4-full",
+          "nai-diffusion-4-curated",
+          "nai-diffusion-4-5-full"
+        ]
+      },
+      "nai_size": {
+        "type": "string",
+        "description": "默认尺寸",
+        "default": "832x1216"
+      },
+      "sampler": {
+        "type": "string",
+        "description": "采样器",
+        "default": "k_euler_ancestral"
+      },
+      "num_inference_steps": {
+        "type": "int",
+        "description": "推理步数",
+        "default": 28
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "CFG / guidance scale",
+        "default": 5.0
+      },
+      "negative_prompt_add": {
+        "type": "text",
+        "description": "附加负面提示词",
+        "default": ""
+      },
+      "custom_prompt_add": {
+        "type": "text",
+        "description": "附加正面提示词，会拼到主 prompt 前面",
+        "default": ""
+      },
+      "nai_extra_params": {
+        "type": "text",
+        "description": "额外请求参数，填写 JSON 对象字符串",
+        "default": "{}",
+        "editor_mode": true,
+        "editor_language": "json"
+      }
+    }
+  },
+  "model_nai3": {
+    "type": "object",
+    "description": "NAI V3 专用配置",
+    "items": {
+      "nai_size": {
+        "type": "string",
+        "description": "V3 默认尺寸",
+        "default": "832x1216"
+      },
+      "selfie_prompt_add": {
+        "type": "text",
+        "description": "自拍时补充的角色特征标签",
+        "default": ""
+      },
+      "sampler": {
+        "type": "string",
+        "description": "V3 采样器",
+        "default": "k_euler_ancestral"
+      },
+      "num_inference_steps": {
+        "type": "int",
+        "description": "V3 推理步数",
+        "default": 28
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "V3 guidance scale",
+        "default": 5.0
+      },
+      "default_size": {
+        "type": "string",
+        "description": "V3 默认尺寸（当 nai_size 未设置时回退）",
+        "default": "1024x1280"
+      },
+      "custom_prompt_add": {
+        "type": "text",
+        "description": "V3 附加正面提示词",
+        "default": ""
+      },
+      "negative_prompt_add": {
+        "type": "text",
+        "description": "V3 附加负面提示词",
+        "default": ""
+      },
+      "nai_cfg": {
+        "type": "float",
+        "description": "V3 cfg 参数",
+        "default": 0.0
+      },
+      "nai_noise_schedule": {
+        "type": "string",
+        "description": "V3 噪声调度器",
+        "default": "karras"
+      },
+      "nai_nocache": {
+        "type": "int",
+        "description": "V3 nocache 参数",
+        "default": 0
+      },
+      "nai_extra_params": {
+        "type": "text",
+        "description": "V3 额外请求参数，填写 JSON 对象字符串",
+        "default": "{}",
+        "editor_mode": true,
+        "editor_language": "json"
+      },
+      "artist_presets": {
+        "type": "list",
+        "description": "V3 画师预设列表，格式为 [{\"name\":\"风格名\",\"prompt\":\"artist:xxx\"}]",
+        "default": []
+      }
+    }
+  },
+  "model_nai4": {
+    "type": "object",
+    "description": "NAI V4 专用配置",
+    "items": {
+      "nai_size": {
+        "type": "string",
+        "description": "V4 默认尺寸",
+        "default": "832x1216"
+      },
+      "selfie_prompt_add": {
+        "type": "text",
+        "description": "自拍时补充的角色特征标签",
+        "default": ""
+      },
+      "sampler": {
+        "type": "string",
+        "description": "V4 采样器",
+        "default": "k_euler_ancestral"
+      },
+      "num_inference_steps": {
+        "type": "int",
+        "description": "V4 推理步数",
+        "default": 28
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "V4 guidance scale",
+        "default": 5.0
+      },
+      "default_size": {
+        "type": "string",
+        "description": "V4 默认尺寸（当 nai_size 未设置时回退）",
+        "default": "1024x1280"
+      },
+      "custom_prompt_add": {
+        "type": "text",
+        "description": "V4 附加正面提示词",
+        "default": ""
+      },
+      "negative_prompt_add": {
+        "type": "text",
+        "description": "V4 附加负面提示词",
+        "default": ""
+      },
+      "nai_cfg": {
+        "type": "float",
+        "description": "V4 cfg 参数",
+        "default": 0.0
+      },
+      "nai_noise_schedule": {
+        "type": "string",
+        "description": "V4 噪声调度器",
+        "default": "karras"
+      },
+      "nai_nocache": {
+        "type": "int",
+        "description": "V4 nocache 参数",
+        "default": 0
+      },
+      "nai_extra_params": {
+        "type": "text",
+        "description": "V4 额外请求参数，填写 JSON 对象字符串",
+        "default": "{}",
+        "editor_mode": true,
+        "editor_language": "json"
+      },
+      "artist_presets": {
+        "type": "list",
+        "description": "V4 画师预设列表，格式为 [{\"name\":\"风格名\",\"prompt\":\"artist:xxx\"}]",
+        "default": []
+      }
+    }
+  },
+  "model_nai4_5": {
+    "type": "object",
+    "description": "NAI V4.5 专用配置",
+    "items": {
+      "nai_size": {
+        "type": "string",
+        "description": "V4.5 默认尺寸",
+        "default": "832x1216"
+      },
+      "selfie_prompt_add": {
+        "type": "text",
+        "description": "自拍时补充的角色特征标签",
+        "default": ""
+      },
+      "sampler": {
+        "type": "string",
+        "description": "V4.5 采样器",
+        "default": "k_euler_ancestral"
+      },
+      "num_inference_steps": {
+        "type": "int",
+        "description": "V4.5 推理步数",
+        "default": 28
+      },
+      "guidance_scale": {
+        "type": "float",
+        "description": "V4.5 guidance scale",
+        "default": 5.0
+      },
+      "default_size": {
+        "type": "string",
+        "description": "V4.5 默认尺寸（当 nai_size 未设置时回退）",
+        "default": "1024x1280"
+      },
+      "custom_prompt_add": {
+        "type": "text",
+        "description": "V4.5 附加正面提示词",
+        "default": ""
+      },
+      "negative_prompt_add": {
+        "type": "text",
+        "description": "V4.5 附加负面提示词",
+        "default": ""
+      },
+      "nai_cfg": {
+        "type": "float",
+        "description": "V4.5 cfg 参数",
+        "default": 0.0
+      },
+      "nai_noise_schedule": {
+        "type": "string",
+        "description": "V4.5 噪声调度器",
+        "default": "karras"
+      },
+      "nai_nocache": {
+        "type": "int",
+        "description": "V4.5 nocache 参数",
+        "default": 0
+      },
+      "nai_extra_params": {
+        "type": "text",
+        "description": "V4.5 额外请求参数，填写 JSON 对象字符串",
+        "default": "{}",
+        "editor_mode": true,
+        "editor_language": "json"
+      },
+      "artist_presets": {
+        "type": "list",
+        "description": "V4.5 画师预设列表，格式为 [{\"name\":\"风格名\",\"prompt\":\"artist:xxx\"}]",
+        "default": []
+      }
+    }
+  },
+  "prompt_generator": {
+    "type": "object",
+    "description": "自然语言转提示词配置",
+    "items": {
+      "provider_id": {
+        "type": "string",
+        "description": "用于提示词生成的 provider ID，留空则跟随当前会话",
+        "default": "",
+        "_special": "select_provider"
+      },
+      "temperature": {
+        "type": "float",
+        "description": "提示词生成温度",
+        "default": 0.2
+      },
+      "max_tokens": {
+        "type": "int",
+        "description": "提示词生成最大 tokens",
+        "default": 220
+      },
+      "output_format": {
+        "type": "string",
+        "description": "提示词输出格式",
+        "default": "text",
+        "options": [
+          "text",
+          "json"
+        ]
+      },
+      "selfie_appearance_policy": {
+        "type": "string",
+        "description": "自拍时对随机外貌标签的处理策略",
+        "default": "auto",
+        "options": [
+          "auto",
+          "keep",
+          "never"
+        ]
+      },
+      "enforce_tag_order": {
+        "type": "bool",
+        "description": "对提示词做轻量排序",
+        "default": false
+      },
+      "prompt_template": {
+        "type": "text",
+        "description": "自定义提示词模板，支持 <<CUSTOM_SYSTEM_PROMPT>>、<<SELFIE_HINT>>、<<USER_REQUEST>> 占位符",
+        "default": "",
+        "editor_mode": true,
+        "editor_language": "markdown"
+      }
+    }
+  },
+  "artist_generator": {
+    "type": "object",
+    "description": "画师串生成配置",
+    "items": {
+      "provider_id": {
+        "type": "string",
+        "description": "画师串生成使用的 provider ID，留空则复用 prompt_generator.provider_id 或当前会话",
+        "default": "",
+        "_special": "select_provider"
+      },
+      "temperature": {
+        "type": "float",
+        "description": "画师串生成温度",
+        "default": 0.3
+      },
+      "random_temperature": {
+        "type": "float",
+        "description": "随机画师串生成温度",
+        "default": 0.7
+      },
+      "max_tokens": {
+        "type": "int",
+        "description": "画师串生成最大 tokens",
+        "default": 300
+      },
+      "auto_preview": {
+        "type": "bool",
+        "description": "默认是否启用画师串预览图模式",
+        "default": false
+      },
+      "search_timeout": {
+        "type": "int",
+        "description": "Danbooru 搜索超时（秒）",
+        "default": 15
+      }
+    }
+  },
+  "tagger": {
+    "type": "object",
+    "description": "图片打标配置",
+    "items": {
+      "provider_id": {
+        "type": "string",
+        "description": "打标使用的支持图像输入的 provider ID，留空则回退到提示词 provider",
+        "default": "",
+        "_special": "select_provider"
+      },
+      "temperature": {
+        "type": "float",
+        "description": "打标温度",
+        "default": 0.2
+      },
+      "max_tokens": {
+        "type": "int",
+        "description": "打标最大 tokens",
+        "default": 900
+      }
+    }
+  },
+  "admin": {
+    "type": "object",
+    "description": "插件管理员配置",
+    "items": {
+      "admin_users": {
+        "type": "list",
+        "description": "额外的插件管理员用户 ID 列表",
+        "default": []
+      },
+      "default_admin_mode": {
+        "type": "bool",
+        "description": "会话默认是否启用插件管理员模式",
+        "default": false
+      }
+    }
+  },
+  "auto_recall": {
+    "type": "object",
+    "description": "图片自动撤回配置（仅 aiocqhttp / NapCat）",
+    "items": {
+      "enabled": {
+        "type": "bool",
+        "description": "默认是否启用自动撤回",
+        "default": false
+      },
+      "delay_seconds": {
+        "type": "int",
+        "description": "自动撤回延迟秒数",
+        "default": 5
+      },
+      "allowed_groups": {
+        "type": "list",
+        "description": "允许自动撤回的会话白名单，格式如 aiocqhttp:123456",
+        "default": []
+      }
+    }
+  },
+  "nsfw_filter": {
+    "type": "object",
+    "description": "NSFW 过滤配置",
+    "items": {
+      "enabled": {
+        "type": "bool",
+        "description": "默认是否启用 NSFW 过滤",
+        "default": false
+      },
+      "filter_tags": {
+        "type": "string",
+        "description": "追加到负面提示词中的过滤标签",
+        "default": "{{{{{nsfw}}}}}"
+      }
+    }
+  },
+  "prompt_show": {
+    "type": "object",
+    "description": "提示词显示配置",
+    "items": {
+      "enabled": {
+        "type": "bool",
+        "description": "默认是否展示最终提示词",
+        "default": false
+      },
+      "hide_selfie_prompt_add": {
+        "type": "bool",
+        "description": "自拍时展示提示词是否隐藏配置中的自拍补充标签",
+        "default": false
+      }
+    }
+  },
+  "custom_prompt": {
+    "type": "object",
+    "description": "自定义系统提示词",
+    "items": {
+      "system_prompt": {
+        "type": "text",
+        "description": "会插入到提示词生成模板最前方的自定义系统提示",
+        "default": "",
+        "editor_mode": true,
+        "editor_language": "markdown"
+      }
+    }
+  },
+  "components": {
+    "type": "object",
+    "description": "调试辅助开关",
+    "items": {
+      "enable_debug_info": {
+        "type": "bool",
+        "description": "在部分流程中发送更明显的过程提示",
+        "default": false
+      }
+    }
+  }
+}
