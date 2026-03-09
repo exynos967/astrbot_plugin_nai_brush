@@ -23,8 +23,12 @@
 - `prompt_show.hide_selfie_prompt_add`：展示提示词时可隐藏自拍模式自动补充的角色标签
 - `auto_recall`：仅在 `aiocqhttp` / NapCat OneBot 下可用
 
-## 迁移取舍
+## 模型推荐
 
-- 保留了原插件的核心命令能力和会话级状态切换
-- 去掉了 MaiBot 独有的 Action / BaseCommand / ActionRecords 绑定，改为 AstrBot 命令 + 服务层结构，并补了 `llm_tool` 作为 AstrBot 原生替代入口
-- 手动撤回仅对“当前插件运行期间已发送并记录过的图片”生效，不再依赖 MaiBot 的消息数据库
+- grok4.2
+- gemini-3-flash
+
+## 特别感谢
+
+- [久远](https://github.com/saberlights)
+- [nai_pic_plugin](https://github.com/saberlights/nai_pic_plugin)
