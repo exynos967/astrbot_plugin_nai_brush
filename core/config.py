@@ -163,16 +163,6 @@ def is_prompt_show_enabled(
     return bool(get_config_value(config, "prompt_show.enabled", False))
 
 
-def should_show_draw_prompt(
-    config: dict[str, Any],
-    session: SessionContext,
-    states: SessionStateStore,
-) -> bool:
-    if not bool(get_config_value(config, "prompt_show.draw_output_enabled", True)):
-        return False
-    return is_prompt_show_enabled(config, session, states)
-
-
 def is_recall_enabled(
     config: dict[str, Any],
     session: SessionContext,

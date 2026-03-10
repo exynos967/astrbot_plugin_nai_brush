@@ -18,7 +18,6 @@ from .core.config import (
     normalize_size_alias,
     parse_artist_presets,
     resolve_model_config,
-    should_show_draw_prompt,
     size_display_name,
 )
 from .core.message_utils import (
@@ -193,7 +192,8 @@ class Main(Star):
         if not prompt_result:
             return "提示词生成失败，请确认当前会话存在可用的聊天模型。"
 
-        if is_prompt_show_enabled(self.config, session, self.states):
+        show_prompt = is_prompt_show_enabled(self.config, session, self.states)
+        if show_prompt:
             await send_text_message(event, f"📝 提示词：\n{prompt_result.display_prompt}")
 
         success, result = await self.image_service.generate_and_send(
@@ -203,7 +203,9 @@ class Main(Star):
         )
         if not success:
             return f"图片生成失败：{result}"
-        return f"图片已发送。最终提示词：{prompt_result.prompt}"
+        if show_prompt:
+            return f"图片已发送。最终提示词：{prompt_result.prompt}"
+        return "图片已发送。"
 
     # ── 内部处理方法 ──────────────────────────────────────────
 
@@ -228,7 +230,7 @@ class Main(Star):
             await send_text_message(event, "❌ 提示词生成失败，请确认当前会话有可用的聊天模型。")
             return
 
-        if should_show_draw_prompt(self.config, session, self.states):
+        if is_prompt_show_enabled(self.config, session, self.states):
             await send_text_message(event, f"📝 提示词：\n{prompt_result.display_prompt}")
 
         success, result = await self.image_service.generate_and_send(

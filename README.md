@@ -18,7 +18,6 @@
   其中 `nai_extra_params` 需填写为 JSON 对象字符串，如 `{"seed": 42, "qualityToggle": true}`
 - `prompt_generator.provider_id`：留空时默认跟随当前会话聊天模型
 - `tagger.provider_id`：可单独指定打标模型
-- `prompt_show.draw_output_enabled`：控制 `/nai draw` 是否允许输出提示词
 - `prompt_show.hide_selfie_prompt_add`：展示提示词时可隐藏自拍模式自动补充的角色标签
 - `auto_recall`：仅在 `aiocqhttp` / NapCat OneBot 下可用
 

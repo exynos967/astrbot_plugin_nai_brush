@@ -615,7 +615,7 @@
       "enabled": {
         "type": "bool",
         "description": "默认启用 NSFW 过滤",
-        "hint": "开启后会将过滤标签追加到负面提示词中，可通过 /nai nsfw on|off 临时切换",
+        "hint": "开启后会将过滤标签追加到负面提示词中",
         "default": false
       },
       "filter_tags": {
@@ -635,12 +635,6 @@
         "description": "默认展示最终提示词",
         "hint": "开启后每次生图前会发送最终使用的提示词，方便调试和学习",
         "default": false
-      },
-      "draw_output_enabled": {
-        "type": "bool",
-        "description": "draw 命令提示词输出开关",
-        "hint": "控制 /nai draw 是否允许输出提示词；关闭后不会输出提示词",
-        "default": true
       },
       "hide_selfie_prompt_add": {
         "type": "bool",
